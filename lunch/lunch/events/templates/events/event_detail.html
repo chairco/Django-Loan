@@ -1,0 +1,21 @@
+{% extends 'events/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h1>出借單位：{{ event }}</h1>
+
+<table class="table">
+  <thead>
+    <tr><th>使用者</th><th>項目</th></tr>
+  </thead>
+  <tbody>
+    {% for order in event.orders.all %}
+    <tr><td>{{ order.user }}</td><td>{{ order.item }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% crispy order_form %}
+
+{% endblock content %}

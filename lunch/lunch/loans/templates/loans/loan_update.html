@@ -1,0 +1,33 @@
+{% extends 'loans/base.html' %}
+{% load staticfiles crispy_forms_tags %}
+
+
+{% block title %}更新 {{ loan.purpose }} | {{ block.super }}{% endblock title %}
+
+
+{% block content %}
+
+<form method="post">
+
+  {% crispy form %}
+
+  {{ device_formset.management_form }}
+  {% for form in device_formset %}
+    <div class="menu-item form-group">
+      {% crispy form device_formset.helper %}
+    </div>
+  {% endfor %}
+
+  <a href="#" class="menu-item-add btn btn-default">新增項目</a>
+  <button type="submit" class="btn btn-primary">更新</button>
+
+</form>
+
+{% endblock content %}
+
+
+{% block js %}
+{{ block.super }}
+<script> $('#id_pega_dri_mail_group').multiSelect() </script>
+<script src="{% static 'loans/js/loan_update.js' %}"></script>
+{% endblock js %}

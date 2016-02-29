@@ -1,0 +1,37 @@
+{# loans/templates/loan_detail.html #}
+
+{% extends 'loans/base.html' %}
+{% load crispy_forms_tags loans_tags %}
+
+{% block title %}{{ loan.purpose }} | {{ block.super }}{% endblock title %}
+
+{% block content%}
+<form method="post" action="{% url 'loan_delete' loan.pk %}">
+  {% csrf_token %}
+  <a href="{% url 'loan_update' pk=loan.pk %}" class="btn btn-default">更新清單</a>
+  {% if loan|deletable:user %}
+  <button type="submit" class="btn btn-danger">刪除</button>
+  {% endif %}
+</form>
+
+<h1>{{ loan.purpose }}</h1>
+{# <p>{{ loan.disassemble }}</p> #}
+<table class="table">
+  <thead>
+    <tr><th>ISN</th><th>Config</th><th>Unit No.</th>
+      <th>Station</th><th>Failure Symptoms</th><th>Create Date</th>
+      <th>Approved</th><th>Admin</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in loan.menu_items.all %}
+    <tr>
+      <td>{{ item.isn }}</td><td>{{ item.config }}</td>
+      <td>{{ item.unit_no }}</td><td>{{ item.station}}</td>
+      <td>{{ item.failure_symptoms }}</td><td>{{ item.created_at }}</td>
+      <td>{{ item.is_approved }}</td><td></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock content %}

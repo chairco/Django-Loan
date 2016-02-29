@@ -1,0 +1,30 @@
+#2/19
+    sotre.detail.html內刪除按鈕需要提示再刪除
+    借機台系統幾個重點：
+    1. 登入帳號可以借
+    2. 帳號可以管理自己的PEGA,COCO DRI MAIL
+    3. 提供即時更新狀態功能給Gina
+
+#2/26
+    1. 新增DRI
+    2. 接上SFIS -> 建立sfis app用pysimplesoap package來接
+    3. 把loan's model station分開變成自行維護
+    4. config, export excel.
+    5. 表格要可以被filter
+    6. 送出mail按鈕給客戶
+    7. 寄信功能
+    8. 送出需求前先有個頁面確認
+
+
+
+
+#Error debug
+    KeyError at /admin/events/order/1/
+    'item'
+    Request Method: GET
+    Request URL:    http://127.0.0.1:8000/admin/events/order/1/
+    Django Version: 1.8
+    Exception Type: KeyError
+    Exception Value:    
+    'item'
+    Exception Location: /Users/chairco/OneDrive/SourceCode/django/dtp/django_tfp/lunch/lunch/events/models.py in __str__, line 73

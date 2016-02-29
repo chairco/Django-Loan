@@ -1,0 +1,25 @@
+{# loans/templates/loan_list.html #}
+{% extends 'loans/base.html' %}
+{% load staticfiles crispy_forms_tags loans_tags %}
+
+{% block title %}列表 | {{ block.super }}{% endblock title %}
+
+{% block content %}
+<a href="{% url 'loan_create' %}" class="btn btn-default">借機台</a>
+{% for loan in loans %}
+<div class="loan">
+  {% if loan|deletable:user %}
+  <button data-href="{% url 'loan_delete' loan.pk %}"
+    class="btn btn-danger pull-right btn-delete">刪除
+  </button>
+  {% endif %}
+  {# <h2><a href="{% url 'loan_detail' pk=loan.pk %}">{{ loan.purpose }}</a></h2> #}
+  {# <p>{{ loan.disassemble }}</p> #}
+  <h2><a href="{{ loan.get_absolute_url }}">{{ loan.purpose }}</a></h2>
+</div>
+{% endfor %}
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'loans/js/loan_list.js' %}"></script>
+{% endblock js %}
