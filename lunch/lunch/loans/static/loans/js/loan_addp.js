@@ -17,12 +17,12 @@ $('#pegaModal').on('show.bs.modal', function (event) {
       },
       dataType: "html",
       success: function(data, result, statues, xml){
-        if (data == "1"){
+        if (data == "False"){
           $("#statusModal").modal({show: true}).find('.modal-body').text("EMAIL格式存在錯誤 或是 使用者名稱已經存在PEGA's GROUP, 請確認.");
         } else {
           $("#statusModal").modal({show: true}).find('.modal-body').text("更新成功");
-          $('#id_pegadri').append('<option value="'+data+'">'+name+'_'+email+'</option>');
-          $('#id_pega_dri_mail_group').append('<option value="'+data+'">'+name+'_'+email+'</option>');
+          $('#id_pegadri').append('<option value="'+data+'">'+name+'|'+email+'</option>');
+          $('#id_pega_dri_mail_group').append('<option value="'+data+'">'+name+'|'+email+'</option>');
           $('#id_pega_dri_mail_group').multiSelect('refresh');
         }
       }

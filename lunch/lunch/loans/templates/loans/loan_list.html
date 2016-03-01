@@ -6,6 +6,7 @@
 
 {% block content %}
 <a href="{% url 'loan_create' %}" class="btn btn-default">借機台</a>
+
 {% for loan in loans %}
 <div class="loan">
   {% if loan|deletable:user %}
@@ -13,11 +14,11 @@
     class="btn btn-danger pull-right btn-delete">刪除
   </button>
   {% endif %}
-  {# <h2><a href="{% url 'loan_detail' pk=loan.pk %}">{{ loan.purpose }}</a></h2> #}
-  {# <p>{{ loan.disassemble }}</p> #}
   <h2><a href="{{ loan.get_absolute_url }}">{{ loan.purpose }}</a></h2>
+  <p>Function：{{ loan.function_team}}, Coco：{{ loan.cocodri }}, Pega：{{ loan.pegadri}}, 拆：{{ loan.disassemble }}, 時間：{{ loan.created_at}}</p>
 </div>
 {% endfor %}
+
 {% endblock content %}
 
 {% block js %}

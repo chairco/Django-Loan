@@ -80,7 +80,6 @@ def loan_update(request, pk):
         'form': form, 'loan': loan, 'device_formset': device_formset,
     })
 
-
 @login_required
 @require_http_methods(['POST', 'DELETE'])
 def loan_delete(request, pk):
@@ -113,7 +112,7 @@ def adddri_pega(request):
             select_id = Pegadri.objects.filter(name=post.name)
             select_id = select_id[len(select_id)-1].id
             return HttpResponse(select_id)
-    return HttpResponse("1")
+    return HttpResponse("False")
 
 def adddri_coco(request):
     if request.method == 'POST':
@@ -127,4 +126,4 @@ def adddri_coco(request):
             select_id = Cocodri.objects.filter(name=post.name)
             select_id = select_id[len(select_id)-1].id
             return HttpResponse(select_id)
-    return HttpResponse("1")
+    return HttpResponse("False")

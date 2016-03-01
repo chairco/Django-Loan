@@ -19,7 +19,8 @@
 <table class="table">
   <thead>
     <tr><th>ISN</th><th>Config</th><th>Unit No.</th>
-      <th>Station</th><th>Failure Symptoms</th><th>Create Date</th>
+      <th>Station</th><th>Failure Symptoms</th>
+      <th>UTK</th><th>Create Date</th>
       <th>Approved</th><th>Admin</th>
     </tr>
   </thead>
@@ -28,7 +29,8 @@
     <tr>
       <td>{{ item.isn }}</td><td>{{ item.config }}</td>
       <td>{{ item.unit_no }}</td><td>{{ item.station}}</td>
-      <td>{{ item.failure_symptoms }}</td><td>{{ item.created_at }}</td>
+      <td>{{ item.failure_symptoms }}</td><td>{{ item.utk}}</td>
+      <td>{{ item.created_at }}</td>
       <td>{{ item.is_approved }}</td><td></td>
     </tr>
     {% endfor %}

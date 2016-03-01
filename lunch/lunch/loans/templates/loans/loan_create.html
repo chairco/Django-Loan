@@ -18,8 +18,11 @@
   {% endfor %}
 
   <!-- 增加這行 -->
+  <section class="progress-demo">
   <a href="#" class="menu-item-add btn btn-default">新增項目</a>
-  <button type="submit" class="btn btn-primary">更新</button>
+  {# <button type="submit" class="btn btn-primary">更新</button> #}
+  <button type="submit" class="btn btn-primary ladda-button" data-style="expand-right">更新</button>
+  </section>
 
   <!-- Modal Pega DRI update-->
   <div class="modal fade" id="pegaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

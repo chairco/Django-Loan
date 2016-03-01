@@ -29,7 +29,7 @@ class Pegadri(models.Model):
         verbose_name_plural = _('Pegadris')
 
     def __str__(self):
-        return self.name+'_'+str(self.email)
+        return self.name+'|'+str(self.email)
 
     def get_absolute_url(self):
         return reverse('pegadri_detail', kwargs={'pk': self.pk})
@@ -62,7 +62,7 @@ class Cocodri(models.Model):
         verbose_name_plural = _('Cocodris')
 
     def __str__(self):
-        return self.name+'_'+str(self.email)
+        return self.name+'|'+str(self.email)
 
     def get_absolute_url(self):
         return reverse('cocodri_detail', kwargs={'pk': self.pk})
@@ -194,6 +194,10 @@ class Device(models.Model):
         max_length=300,
         blank=True, null=True,
     )
+    utk = models.CharField(
+        max_length=300,
+        blank=True, null=True,
+    )
     # Below is for admin
     status = models.IntegerField(
         default=0,
@@ -204,6 +208,13 @@ class Device(models.Model):
     created_at = models.DateTimeField(
         auto_now_add=True,
         editable=False,
+    )
+    sfis_status = models.BooleanField(
+        default=False,
+    )
+    sfis_info = models.CharField(
+        max_length=40,
+        blank=True, null=True,
     )
 
     class Meta:
