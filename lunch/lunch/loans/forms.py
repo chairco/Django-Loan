@@ -83,6 +83,12 @@ class LoanForm(forms.ModelForm):
         data-whatever="@pega"> <span class="ladda-label">新增PEGA DRI</span></button>',
         widget=forms.SelectMultiple(attrs={'size':'10'})
       )
+    disassemble = forms.ChoiceField(
+        required=True, 
+        widget=forms.RadioSelect, 
+        choices=[('False', 'No',), ('True', 'Yes',)],
+        label='Will unit be opened'
+    )
     
     class Meta:
         model = Loan
