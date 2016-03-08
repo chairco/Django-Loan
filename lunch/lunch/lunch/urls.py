@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from pages.views import home
 from .api import v1, v2
-from loans.views import loan_list, loan_detail, adddri_pega, adddri_coco
+from loans.views import loan_list, loan_detail, adddri_pega, adddri_coco, utk_value
 
 
 urlpatterns = [
@@ -23,6 +23,8 @@ urlpatterns = [
 
     url(r'^adddri_pega$', adddri_pega),
     url(r'^adddri_coco$', adddri_coco),
+
+    url(r'^utkvalue$', utk_value),
 ]
 
 

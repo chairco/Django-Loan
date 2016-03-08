@@ -5,28 +5,8 @@
 <div class="container">
   <div class="jumbotron">
   <h1>Hello, Welcome!</h1>
-  <p>一次美好的體驗</p>
-  <p><a class="btn btn-primary btn-lg" href="{% url 'loan_create' %}" role="button">開始行動</a></p>
+  <p>Units Check in FA System</p>
+  <p><a class="btn btn-primary btn-lg" href="{% url 'loan_create' %}" role="button">Start >></a></p>
   </div>
-
-  <table class="table">
-  <thead>
-    <tr><th>Loan</th><th>ISN</th><th>Config</th><th>Unit No.</th>
-      <th>Station</th><th>Failure Symptoms</th>
-      <th>UTK</th><th>Create</th>
-      <th>Approved</th><th>Admin</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for device in devices %}
-    <tr><td>{{ device.request }}</td><td>{{ device.isn }}</td><td>{{ device.config }}</td>
-      <td>{{ device.unit_no }}</td><td>{{ device.station }}</td>
-      <td>{{ device.failure_symptoms }}</td><td>{{ device.utk }}</td>
-      <td>{{ device.created_at }}</td>
-      <td>{{ device.is_approved }}</td><td></td>
-    </tr>
-    {% endfor %}
-  </tbody>
-  </table>
 </div>
 {% endblock body %}

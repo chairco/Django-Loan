@@ -31,8 +31,8 @@ class Store(models.Model):
         return reverse('store_detail', kwargs={'pk': self.pk})
 
     def can_user_delete(self, user):
-        if not self.owner or self.owner == user:
-            return True
+        #if not self.owner or self.owner == user:
+        #    return True
         if user.has_perm('stores.delete_store'):
             return True
         return False

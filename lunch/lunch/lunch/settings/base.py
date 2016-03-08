@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     'stores',
     'base',
     'braces',
+    'import_export',
     'crispy_forms',
     'rest_framework',
     'tastypie',
@@ -108,7 +109,7 @@ LANGUAGES = (
     ('zh-hant', '中文（繁體）')
 )
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Taipei'
 
 USE_I18N = True
 

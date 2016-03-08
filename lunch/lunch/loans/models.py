@@ -8,6 +8,34 @@ from django.core.validators import (
 )
 from django.contrib.auth.models import User
 
+class Log(models.Model):
+    
+    name = models.CharField(
+        max_length=30,
+        verbose_name=_('name'),
+    )
+    function = models.CharField(
+        max_length=100,
+        blank=True, null=True,
+        verbose_name=_('function'),
+    )
+    info = models.CharField(
+        max_length=100,
+        blank=True, null=True,
+        verbose_name=_('info'),
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        editable=False,
+    )
+    class Meta:
+        verbose_name = _('Log')
+        verbose_name_plural = _('Logs')
+
+    def __str__(self):
+        return self.name
+
+
 class Pegadri(models.Model):
 
     owner = models.ForeignKey(
@@ -29,7 +57,7 @@ class Pegadri(models.Model):
         verbose_name_plural = _('Pegadris')
 
     def __str__(self):
-        return self.name+'|'+str(self.email)
+        return self.name+','+str(self.email)
 
     def get_absolute_url(self):
         return reverse('pegadri_detail', kwargs={'pk': self.pk})
@@ -62,7 +90,7 @@ class Cocodri(models.Model):
         verbose_name_plural = _('Cocodris')
 
     def __str__(self):
-        return self.name+'|'+str(self.email)
+        return self.name+','+str(self.email)
 
     def get_absolute_url(self):
         return reverse('cocodri_detail', kwargs={'pk': self.pk})
@@ -134,7 +162,8 @@ class Loan(models.Model):
         ]
     )
     disassemble = models.BooleanField(
-        default=False,
+        #default=False,
+        blank=False,
         verbose_name=_('Disassemble（會拆機台）'),
     )
     pega_dri_mail_group = models.CharField(
@@ -159,8 +188,8 @@ class Loan(models.Model):
         return reverse('loan_detail', kwargs={'pk': self.pk})
 
     def can_user_delete(self, user):
-        if not self.owner or self.owner == user:
-            return True
+        #if not self.owner or self.owner == user:
+        #    return True
         if user.has_perm('loans.delete_store'):
             return True
         return False
@@ -175,7 +204,7 @@ class Device(models.Model):
     station = models.ForeignKey(
         'Station',
         related_name='grpnm_items', 
-        verbose_name=_('grpnm'),
+        verbose_name=_('Station'),
     )
     config = models.CharField(
         max_length=10,
@@ -187,16 +216,21 @@ class Device(models.Model):
     )
     isn = models.CharField(
         max_length=20,
-        blank=True, null=True,
+        blank=False, null=True,
         verbose_name=_('ISN'),
     )
     failure_symptoms = models.CharField(
         max_length=300,
-        blank=True, null=True,
+        blank=False, null=True,
     )
     utk = models.CharField(
         max_length=300,
         blank=True, null=True,
+    )
+    grpnm = models.CharField(
+        max_length=30,
+        blank=True, null=True,
+        verbose_name=_('GRPNM'),
     )
     # Below is for admin
     status = models.IntegerField(

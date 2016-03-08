@@ -22,6 +22,8 @@
       <ul class="nav navbar-nav">
         <li><a href="{% url 'loan_list' %}">申請列表</a></li>
         <li><a href="{% url 'store_list' %}">管理列表</a></li>
+        <li><a href="{% url 'utk_search' %}">機台位置查詢</a></li>
+        <li><a href="{% url 'export_xlsx' %}">下載報表</a></li>
       </ul>
       <form class="navbar-form navbar-right" action="{% url 'set_language' %}" method="post">
         {% csrf_token %}
@@ -35,7 +37,7 @@
         {% if user.is_authenticated %}
         {% csrf_token %}
         <input type="hidden" name="next" value="{% url 'home' %}">
-        <button class="btn btn-default" type="submit">登出</button>
+        <button class="btn btn-default" type="submit">{{ user }} 登出</button>
         {% else %}
         <a class="btn btn-default" href="{% url 'login' %}">登入</a>
         {% endif %}
@@ -49,7 +51,7 @@
   <footer class="container" style="margin-top: 100px;">
     <p class="text-center">
       Copyright ©2016 Pegatron Corporation<br>
-      Version: 1.0.0 &nbsp
+      Version: 1.0.2 &nbsp
       Design by <a href="mailto:yichieh_chen@pegatroncorp.com?Subject=Units Loan Tracker%20Question" target="_top" target=_new>瘋狂超人假面</a>
     </p>
   </footer>
@@ -76,7 +78,7 @@
         progress = Math.min( progress + Math.random() * 0.1, 1 );
         instance.setProgress( progress );
 
-        if( progress === 1 ) {
+        if( progress == 10 ) {
           instance.stop();
           clearInterval( interval );
         }

@@ -5,7 +5,7 @@
 {% block title %}列表 | {{ block.super }}{% endblock title %}
 
 {% block content %}
-<a href="{% url 'loan_create' %}" class="btn btn-default">借機台</a>
+<a href="{% url 'loan_create' %}" class="btn btn-default">Units Checkin FA Request List</a>
 
 {% for loan in loans %}
 <div class="loan">
@@ -14,8 +14,31 @@
     class="btn btn-danger pull-right btn-delete">刪除
   </button>
   {% endif %}
-  <h2><a href="{{ loan.get_absolute_url }}">{{ loan.purpose }}</a></h2>
-  <p>Function：{{ loan.function_team}}, Coco：{{ loan.cocodri }}, Pega：{{ loan.pegadri}}, 拆：{{ loan.disassemble }}, 時間：{{ loan.created_at}}</p>
+  <h2><a href="{{ loan.get_absolute_url }}">#{{ loan.id }} {{ loan.function_team }}({{ loan.owner }})</a></h2>
+  <p>Coco:{{ loan.cocodri }}, Pega:{{ loan.pegadri }}, Purpose:{{ loan.purpose }}, Disassemble:{{loan.disassemble}}, Time:{{ loan.created_at}}</p>
+   <table class="table table-striped table table-hover" style="font-size:12px;">
+    <thead>
+      <tr><th>Function</th><th>ISN</th>
+      <th>Config</th><th>Unit_no</th>
+      <th>Station</th><th>GRPNM</th><th>Failure Symptoms</th>
+      <th>UTK</th><th>Create Date</th>
+      <th>Approved</th><th>Admin</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for item in loan.menu_items.all %}
+    <tr>
+      <td>{{ loan.function_team}}</td>
+      <td>{{ item.isn }}</td><td>{{ item.config }}</td>
+      <td>{{ item.unit_no }}</td><td>{{ item.station}}</td>
+      <td>{{ item.grpnm }}</td>
+      <td>{{ item.failure_symptoms }}</td><td>{{ item.utk}}</td>
+      <td>{{ item.created_at }}</td>
+      <td>{{ item.is_approved }}</td><td></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
 </div>
 {% endfor %}
 
