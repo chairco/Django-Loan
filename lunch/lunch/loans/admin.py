@@ -1,6 +1,22 @@
 # loans/admin.py
 from django.contrib import admin
-from .models import Loan, Device, Functionteam, Cocodri, Pegadri, Station
+from .models import Loan, Device, Functionteam, Cocodri, Pegadri, Station, Log
+
+from import_export.admin import ImportExportMixin, ExportActionModelAdmin
+from import_export import resources, widgets, fields
+from import_export.widgets import ForeignKeyWidget
+
+class StationResource(resources.ModelResource):
+    #config = fields.Field(column_name='config', attribute='config', 
+    #        widget=ForeignKeyWidget(Config, 'name'))
+    class Meta:
+        model = Station
+        fields = ('id','name')
+        #widgets = {
+        #          'received_at': {'format': '%m/%d/%Y %I:%M:%S %p'},
+        #          'approved_at': {'format': '%m/%d/%Y %I:%M:%S %p'},
+        #        }
+        #fields = ('id', 'config', 'request', 'unit_no', 'isn',)
 
 class DeviceInline(admin.TabularInline):
     model = Device
@@ -34,5 +50,14 @@ class FunctionteamAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
 @admin.register(Station)
-class FunctionteamAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+class StationAdmin(ImportExportMixin, admin.ModelAdmin):
+    list_display = ('id', 'name')
+    resource_class = StationResource 
+
+@admin.register(Log)
+class LogAdmin(admin.ModelAdmin):
+    list_display = (
+        'name', 'function', 'info',
+        'created_at',
+    )
+    list_filter = ['name', 'function']

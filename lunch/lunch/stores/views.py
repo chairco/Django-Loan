@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse, HttpResponseForbidden
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_http_methods
+from django.contrib.auth.decorators import login_required, permission_required
 
 from events.forms import EventForm
 from .forms import MenuItemFormSet, StoreForm, ItemForm
@@ -31,6 +32,7 @@ def store_detail(request, pk):
         'store': store, 'event_form': event_form,
     })
 
+@login_required
 def store_create(request):
     if request.method == 'POST':
         form = StoreForm(request.POST, submit_title='建立')
@@ -47,6 +49,8 @@ def store_create(request):
         form = StoreForm(submit_title='建立')
     return render(request, 'stores/store_create.html', {'form': form})
 
+@login_required
+@permission_required('stores.delete_store', login_url='/accounts/login/')
 def store_update(request, pk):
     try:
         store = Store.objects.get(pk=pk)

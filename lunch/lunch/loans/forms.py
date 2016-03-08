@@ -5,7 +5,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from django.forms.models import inlineformset_factory
 
-from .models import Device, Cocodri, Pegadri
+from .models import Device, Cocodri, Pegadri, Functionteam
 
 BaseMenuItemFormSet = inlineformset_factory(
     parent_model=Loan, model=Device, fk_name='request', fields=('isn', 'station',),
@@ -83,14 +83,29 @@ class LoanForm(forms.ModelForm):
         data-whatever="@pega"> <span class="ladda-label">新增PEGA DRI</span></button>',
         widget=forms.SelectMultiple(attrs={'size':'10'})
       )
-    
+    function_team = forms.ModelChoiceField(
+       queryset=Functionteam.objects.all().order_by('name'),
+       label='Function Team'
+    )
+    #disassemble = forms.MultipleChoiceField(required=True,
+    #    widget=forms.CheckboxSelectMultiple, choices=[('False', 'False'), ('True', 'True')])   
+    disassemble = forms.ChoiceField(
+        required=True, 
+        widget=forms.RadioSelect, 
+        choices=[('False', 'No',), ('True', 'Yes',)],
+        label='Will unit be opened'
+    )
+
     class Meta:
         model = Loan
         fields=(
             'function_team', 'cocodri', 'pegadri', 'purpose', 'disassemble',
             'pega_dri_mail_group',
         )
-    
+        labels = {
+            'disassemble': 'Will unit be opened',
+        }
+ 
     def __init__(self, *args, user=None, submit_title='Submit', **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
