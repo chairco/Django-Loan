@@ -34,6 +34,7 @@ class Sfis(object):
         else:
            #print(result.string)
            header = str(result.string[0]).split(',')
+           header = ['UTK '+h for h in header]
            content = str(result.string[1]).replace('{', '').replace('}', '').split(',')
            value = dict(zip(header, content))
            #print(value)
@@ -58,6 +59,8 @@ class Sfis(object):
            return [1, result.string[0]]
         else:
            header = str(result.string[0]).split(',')
+           header = ['MODD '+h for h in header]
+           #print(type(header), header)
            content = str(result.string[1]).replace('{', '').replace('}', '').split(',')
            value = dict(zip(header, content))
            #print(value)

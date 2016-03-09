@@ -8,7 +8,8 @@
 {% block content %}
 <html>
 <body>
-  <p>可查詢SFIS UTK,MODD訊息, 等候時間約1~30s, 推薦使用Chrome瀏覽器</p>
+  <p><a href="http://yodawebs/index.jsp">完整訊息請上SFIS查詢</a></p>
+  <p>可查詢最新一筆SFIS UTK,MODD訊息, 等候時間約1~30s, 推薦使用Chrome瀏覽器.</p>
   <p>ISN: <input type="text" name="nickname" /></p>
   <input class="name_submit" type="submit" value="Submit" />
   <div class="name_value"></div>
@@ -28,13 +29,31 @@ $(".name_submit").click(function(){
       dataType:"json",
       success:function(data){
         $(".name_value").text("");
-        $(".name_value").append("<hr></hr>UTK: "+data+"<br>");
-        for (var i in data) {
+        $(".name_value").append("<hr></hr>");
+        
+        //$(".name_value").append("<hr></hr>UTK: "+data+"<br>");
+        //for (var i in data) {
         // i 為 key，把 data 的每一項顯示在網頁上
-        $('.name_value').append("<br>" + i + " : " + data[i] + "<br>");
-    	}
+        //$('.name_value').append("<br>" + i + " : " + data[i] + "<br>");
+    	//}
+
+        //var trHTML = '';
+        var trHeader = '';
+        var trContent = '';
+        var trTable = '';
+        var count = 0;
+        for (var i in data) {
+            //trHTML += '<tr><td>' + i + ": " + '</td><td>' + data[i] + '</td></tr>';
+            trHeader += '<th>' + i + '</th>';
+            trContent += '<td>' + data[i] + '</td>';
+        };
+        trHeader = '<thead><tr>' + trHeader + '</tr></thead>';
+        trContent = '<tbody><tr>' + trContent + '</tr></tbody>';
+        trTable = '<table class="table table-striped table table-hover" style="font-size:12px;">' + trHeader + trContent + '</table>'
+        //$('.name_value').append(trHTML)
+        $('.name_value').append(trTable)
       }
-    }); // Ajax End
+    }); //AJAXEnd
   });
 </script>
 </html>
