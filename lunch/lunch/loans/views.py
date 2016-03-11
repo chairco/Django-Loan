@@ -356,7 +356,11 @@ def export_xlsx(request):
         print request_list[i].request_condition, request_list[i].quantity
     '''
     response = HttpResponse(content_type='application/vnd.ms-excel')
+<<<<<<< HEAD
     response['Content-Disposition'] = 'attachment; filename=CheckinFA_Report_'+ \
+=======
+    response['Content-Disposition'] = 'attachment; filename=TDL_Report_'+ \
+>>>>>>> 51b43f1ba9587a518f2a6313251120636f81e5c0
                                       datetime.strftime(datetime.now(), '%Y%m%d%H%M') +'.xlsx'
     xlsx_data = WriteToExcel(request_data=request_list)
     response.write(xlsx_data)

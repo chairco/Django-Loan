@@ -133,7 +133,11 @@ LOGGING = {
     'disable_existing_loggers': False,
     'handlers': {
         'file': {
+<<<<<<< HEAD
             'level': 'INFO', # TODO(yichieh)change DEBUG TO INFO.
+=======
+            'level': 'DEBUG',
+>>>>>>> 51b43f1ba9587a518f2a6313251120636f81e5c0
             'class': 'logging.FileHandler',
             'filename': os.path.join(os.path.dirname(BASE_DIR), 'lunch.log'),
         },
