@@ -1,0 +1,99 @@
+{# loans/templates/loans/loan_create.html #}
+
+{% extends 'loans/base.html' %}
+{% load staticfiles crispy_forms_tags %}
+
+{% block title %}Units Checkin | {{ block.super }}{% endblock title %}
+
+{% block content %}
+<form method="post">
+  {% crispy form %}
+
+  <!-- 手動一個一個產生 formset 中的 forms，並在它們外面包一層 div -->
+  {{ device_formset.management_form }}
+  {% for form in device_formset %}
+    <div class="menu-item form-group">
+      {% crispy form device_formset.helper %}
+    </div>
+  {% endfor %}
+
+  <!-- 增加這行 -->
+  <section class="progress-demo">
+  <a href="#" class="menu-item-add btn btn-default">新增項目</a>
+  {# <button type="submit" class="btn btn-primary">更新</button> #}
+  <button type="submit" class="btn btn-primary ladda-button" data-style="expand-right">提交</button>
+  </section>
+
+  <!-- Modal Pega DRI update-->
+  <div class="modal fade" id="pegaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+        </div>
+        <div class="modal-body">
+          <form role="form">
+            {{ formp|crispy }}
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button id="pegasave" type="button" class="btn btn-primary">Save</button>
+          <!-- <button type="submit" class="btn btn-primary">Test</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal CoCo DRI update-->
+  <div class="modal fade" id="cocoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+        </div>
+        <div class="modal-body">
+          <form role="form">
+            {{ formc|crispy }}
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button id="cocosave" type="button" class="btn btn-success">Save</button>
+          <!-- <button type="submit" class="btn btn-primary">Test</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Button trigger modal -->
+  <!-- Modal status -->
+  <div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="myModalLabel">通知</h4>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>  
+
+</form>
+{% endblock content %}
+
+<!-- 加上這個 block -->
+{% block js %}
+{{ block.super }}
+<script>$('#id_pega_dri_mail_group').multiSelect()</script>
+<script src="{% static 'loans/js/loan_update.js' %}"></script>
+<script src="{% static 'loans/js/loan_addp.js' %}"></script>
+<script src="{% static 'loans/js/loan_addc.js' %}"></script>
+{% endblock js %}

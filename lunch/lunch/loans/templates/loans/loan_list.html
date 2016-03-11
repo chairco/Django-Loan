@@ -1,0 +1,49 @@
+{# loans/templates/loan_list.html #}
+{% extends 'loans/base.html' %}
+{% load staticfiles crispy_forms_tags loans_tags %}
+
+{% block title %}列表 | {{ block.super }}{% endblock title %}
+
+{% block content %}
+<a href="{% url 'loan_create' %}" class="btn btn-default">Units Checkin FA Request List</a>
+
+{% for loan in loans %}
+<div class="loan">
+  {% if loan|deletable:user %}
+  <button data-href="{% url 'loan_delete' loan.pk %}"
+    class="btn btn-danger pull-right btn-delete">刪除
+  </button>
+  {% endif %}
+  <h2><a href="{{ loan.get_absolute_url }}">#{{ loan.id }} {{ loan.function_team }}({{ loan.owner }})</a></h2>
+  <p>Coco:{{ loan.cocodri }}, Pega:{{ loan.pegadri }}, Purpose:{{ loan.purpose }}, Disassemble:{{loan.disassemble}}, Time:{{ loan.created_at}}</p>
+   <table class="table table-striped table table-hover" style="font-size:12px;">
+    <thead>
+      <tr><th>Function</th><th>ISN</th>
+      <th>Config</th><th>Unit_no</th>
+      <th>Station</th><th>GRPNM</th><th>Failure Symptoms</th>
+      <th>UTK</th><th>Create Date</th>
+      <th>Approved</th><th>Admin</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for item in loan.menu_items.all %}
+    <tr>
+      <td>{{ loan.function_team}}</td>
+      <td>{{ item.isn }}</td><td>{{ item.config }}</td>
+      <td>{{ item.unit_no }}</td><td>{{ item.station}}</td>
+      <td>{{ item.grpnm }}</td>
+      <td>{{ item.failure_symptoms }}</td><td>{{ item.utk}}</td>
+      <td>{{ item.created_at }}</td>
+      <td>{{ item.is_approved }}</td><td></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endfor %}
+
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'loans/js/loan_list.js' %}"></script>
+{% endblock js %}

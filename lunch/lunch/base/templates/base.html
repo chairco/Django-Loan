@@ -1,0 +1,71 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>{% block title %}NPI管理系統{% endblock title %}</title>
+{# <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> #}
+<link rel="stylesheet" href="{% static 'base/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'base/css/multi-select.css' %}">
+<link rel="stylesheet" href="{% static 'base/ladda/dist/ladda-themeless.min.css' %}">
+</head>
+
+<body>
+
+{% block body %}
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{% url 'home' %}">PTD Alpha</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="{% url 'loan_list' %}">申請列表</a></li>
+        <li><a href="{% url 'store_list' %}">管理機台</a></li>
+        <li><a href="{% url 'utk_search' %}">機台位置查詢</a></li>
+        <li><a href="{% url 'export_xlsx' %}">下載報表</a></li>
+      </ul>
+      <form class="navbar-form navbar-right" action="{% url 'set_language' %}" method="post">
+        {% csrf_token %}
+        <select name="language" class="form-control language-switch">
+          {% for code, name in LANGUAGES %}
+            <option value="{{ code }}"{% if LANGUAGE_CODE == code %} selected{% endif %}>{{ name }}</option>
+          {% endfor %}
+        </select>
+      </form>
+      <form class="navbar-right navbar-form" method="post" action="{% url 'logout' %}">
+        {% if user.is_authenticated %}
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{% url 'home' %}">
+        <button class="btn btn-default" type="submit">{{ user }} 登出</button>
+        {% else %}
+        <a class="btn btn-default" href="{% url 'login' %}">登入</a>
+        {% endif %}
+      </form>
+    </div>
+  </div>
+</nav>
+{% endblock body %}
+
+<div class="footer">
+  <footer class="container" style="margin-top: 100px;">
+    <p class="text-center">
+      Copyright ©2016 Pegatron Corporation<br>
+      Version: 1.0.4 &nbsp
+      Design by <a href="mailto:yichieh_chen@pegatroncorp.com?Subject=Units Loan Tracker%20Question" target="_top" target=_new>瘋狂超人假面</a>
+    </p>
+  </footer>
+</div>
+
+{# <script src="//code.jquery.com/jquery-2.1.1.min.js"></script> #}
+<script src="{% static 'base/js/jquery-2.2.1.min.js' %}"></script>
+<script src="{% static 'base/js/base.js' %}"></script>
+<script src="{% static 'base/js/jquery.multi-select.js' %}"></script>
+<script src="{% static 'base/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'base/ladda/dist/spin.min.js' %}"></script>
+<script src="{% static 'base/ladda/dist/ladda.min.js' %}"></script>
+<script src="{% static 'base/js/ladda.wait.js' %}"></script>
+{% block js %}{% endblock js %}
+
+</body>
+</html>

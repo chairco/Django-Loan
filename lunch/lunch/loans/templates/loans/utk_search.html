@@ -1,0 +1,29 @@
+{# loans/templates/loans/utk_search.html #}
+
+{% extends 'loans/base.html' %}
+{% load staticfiles %}
+
+{% block title %}UTK Search | {{ block.super }}{% endblock title %}
+
+{% block content %}
+<html>
+<body>
+  <p><a href="http://yodawebs/index.jsp">完整訊息請上SFIS查詢</a></p>
+  <p>可查詢最新一筆SFIS UTK,MODD訊息, 等候時間約1~30s, 推薦使用Chrome瀏覽器.</p>
+  <p>ISN: <input type="text" name="nickname" /></p>
+  <input class="name_submit" type="submit" value="Submit" />
+  <div class="name_value"></div>
+</body>
+
+<script src="{% static 'base/js/jquery-2.2.1.min.js' %}"></script>
+<script src="{% static 'loans/js/loan_search.js' %}"></script>
+{#<script type="text/javascript"></script>#}
+</html>
+
+{% endblock content %}
+
+<!-- 加上這個 block -->
+{% block js %}
+{{ block.super }}
+
+{% endblock js %}

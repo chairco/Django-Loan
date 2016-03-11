@@ -1,0 +1,58 @@
+{% extends 'stores/base.html' %}
+{% load crispy_forms_tags stores_tags %}
+
+{% block title %}{{ store.name }} | {{ block.super }}{% endblock title %}
+
+{% block content %}
+
+<form method="post" action="{% url 'store_delete' store.pk %}" class="controls">
+  {% csrf_token %}
+  <a href="{% url 'store_update' pk=store.pk %}" class="btn btn-default">更新資訊</a>
+  {% if store|deletable:user %}
+  <button type="submit" class="btn btn-danger">刪除</button>
+  {% endif %}
+</form>
+
+<h1>{{ store.name }}</h1>
+<p>{{ store.notes }}</p>
+<p>管理者: {{ store.owner}}</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Build</th>
+      <th>Config</th>
+      <th>Unit No.</th>
+      <th>ISN</th>
+      <th>FF/NED</th>
+      <th>Function Team</th>
+      <th>UTK</th>
+      <th>Create_at</th>
+      <th>CG Color</th>
+      <th>HSG</th>
+      <th>Admin</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in store.menu_items.all %}
+    <tr>
+      <td>{{ item.build }}</td>
+      <td>{{ item.config }}</td>
+      <td>{{ item.unit_no }}</td>
+      <td>{{ item.isn }}</td>
+      <td>{% if item.ffned == 0 %}FF{% elif item.ffned == 1 %}NED{% else %}Error{% endif %}</td>
+      <td>{{ item.function_team }}</td>
+      <td>{{ item.utk }}</td>
+      <td>{{ item.created_at}}</td>
+      <td>{{ item.hsg }}</td>
+      <td>{{ item.cg_color }}</td>
+      <td><a href="{% url 'item_update' pk=item.pk %}">修改</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if user.is_authenticated %}
+{% crispy event_form %}
+{% endif %}
+
+{% endblock content %}
