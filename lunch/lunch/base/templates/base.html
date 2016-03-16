@@ -16,12 +16,12 @@
 <nav class="navbar navbar-default navbar-static-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand" href="{% url 'home' %}">NPI管理系統</a>
+      <a class="navbar-brand" href="{% url 'home' %}">PTD Alpha</a>
     </div>
     <div>
       <ul class="nav navbar-nav">
         <li><a href="{% url 'loan_list' %}">申請列表</a></li>
-        <li><a href="{% url 'store_list' %}">管理列表</a></li>
+        <li><a href="{% url 'store_list' %}">管理機台</a></li>
         <li><a href="{% url 'utk_search' %}">機台位置查詢</a></li>
         <li><a href="{% url 'export_xlsx' %}">下載報表</a></li>
       </ul>
@@ -51,7 +51,7 @@
   <footer class="container" style="margin-top: 100px;">
     <p class="text-center">
       Copyright ©2016 Pegatron Corporation<br>
-      Version: 1.0.2 &nbsp
+      Version: 1.0.4 &nbsp
       Design by <a href="mailto:yichieh_chen@pegatroncorp.com?Subject=Units Loan Tracker%20Question" target="_top" target=_new>瘋狂超人假面</a>
     </p>
   </footer>
@@ -64,26 +64,8 @@
 <script src="{% static 'base/js/bootstrap.min.js' %}"></script>
 <script src="{% static 'base/ladda/dist/spin.min.js' %}"></script>
 <script src="{% static 'base/ladda/dist/ladda.min.js' %}"></script>
+<script src="{% static 'base/js/ladda.wait.js' %}"></script>
 {% block js %}{% endblock js %}
 
 </body>
-<script>
-  // Bind normal buttons
-  Ladda.bind( '.button-demo button', { timeout: 2000 } );
-  // Bind progress buttons and simulate loading progress
-  Ladda.bind( '.progress-demo button', {
-    callback: function( instance ) {
-      var progress = 0;
-      var interval = setInterval( function() {
-        progress = Math.min( progress + Math.random() * 0.1, 1 );
-        instance.setProgress( progress );
-
-        if( progress == 10 ) {
-          instance.stop();
-          clearInterval( interval );
-        }
-      }, 200 );
-    }
-  } );
-</script>
 </html>

@@ -8,35 +8,16 @@
 {% block content %}
 <html>
 <body>
-  <p>可查詢SFIS UTK,MODD訊息, 等候時間約1~30s, 推薦使用Chrome瀏覽器</p>
+  <p><a href="http://yodawebs/index.jsp">完整訊息請上SFIS查詢</a></p>
+  <p>可查詢最新一筆SFIS UTK,MODD訊息, 等候時間約1~30s, 推薦使用Chrome瀏覽器.</p>
   <p>ISN: <input type="text" name="nickname" /></p>
   <input class="name_submit" type="submit" value="Submit" />
   <div class="name_value"></div>
 </body>
 
 <script src="{% static 'base/js/jquery-2.2.1.min.js' %}"></script>
-<script type="text/javascript">
-$(".name_submit").click(function(){ 
-    var nickname = $("input[name='nickname']").val();
-    console.log(nickname)
-    $(".name_value").text("");
-    $(".name_value").append("<br>搜尋中...約30秒內 ");
-    $.ajax({
-      url:"/utkvalue",
-      type:"post",
-      data:{"nickname":nickname},
-      dataType:"json",
-      success:function(data){
-        $(".name_value").text("");
-        $(".name_value").append("<hr></hr>UTK: "+data+"<br>");
-        for (var i in data) {
-        // i 為 key，把 data 的每一項顯示在網頁上
-        $('.name_value').append("<br>" + i + " : " + data[i] + "<br>");
-    	}
-      }
-    }); // Ajax End
-  });
-</script>
+<script src="{% static 'loans/js/loan_search.js' %}"></script>
+{#<script type="text/javascript"></script>#}
 </html>
 
 {% endblock content %}
