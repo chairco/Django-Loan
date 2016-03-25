@@ -101,6 +101,8 @@ def loan_create(request):
                         )
                     else:
                         info = s_info[1]
+                        config = 'no data'
+                        unit_no = 'no data'
                         Device.objects.filter(isn=device_items[i].isn).update(
                             sfis_info=str(info)+','+str(datetime.strftime(datetime.now(),'%Y-%m-%d-%H:%M'))
                         )
