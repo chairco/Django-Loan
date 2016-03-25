@@ -35,7 +35,6 @@ class Log(models.Model):
     def __str__(self):
         return self.name
 
-
 class Pegadri(models.Model):
 
     owner = models.ForeignKey(

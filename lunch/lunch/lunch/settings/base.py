@@ -37,7 +37,7 @@ def get_env_var(key):
 SECRET_KEY = 'pk3v^+%-#ca$7=q=u@2pjw7a5*t2u94ow9*(ii(45_$t@w((&r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 

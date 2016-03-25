@@ -16,7 +16,6 @@ from utility import HTML
 from django.contrib.auth.models import User
 from django.shortcuts import render_to_response
 from django.http import JsonResponse
-
 from .belta import Sfis
 
 logger = logging.getLogger(__name__)
@@ -108,7 +107,7 @@ def loan_create(request):
                     if s_utk[0] == 0:
                         utk = s_utk[1]
                         Device.objects.filter(isn=device_items[i].isn).update(
-                            utk=utk['C_TIME']
+                            utk=utk['UTK C_TIME']
                         )
                     if s_error[0] == 0:
                         serror = s_error[1]
@@ -124,7 +123,7 @@ def loan_create(request):
                         )
                     if s_modd[0] == 0:
                        smodd = s_modd[1]
-                       grpnm = str(smodd['GRPNM'])+', '+str(smodd['STATUS'])
+                       grpnm = str(smodd['MODD GRPNM'])+', '+str(smodd['MODD STATUS'])
                        Device.objects.filter(isn=device_items[i].isn).update(
                             grpnm=str(grpnm)
                         )
